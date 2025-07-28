@@ -1,0 +1,15 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore virtual environment
+venv/
+
+# Ignore dataset (so it doesn't get added again)
+data/dataset.csv
+
+# Ignore PDF reports (optional)
+output/VehicleTestReport.pdf
+
+# VS Code settings (optional)
+.vscode/

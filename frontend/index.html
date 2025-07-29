@@ -1,20 +1,43 @@
+<!-- frontend/index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Vehicle Testing Agent</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Vehicle Test Report</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🚗 Vehicle Test Result</h1>
-  <button onclick="loadResult()">Show Test Result</button>
-  <pre id="output"></pre>
+  <h1>🚗 Vehicle Testing Agent</h1>
+
+  <form id="upload-form">
+    <input type="file" id="csvFile" accept=".csv" required />
+    <button type="submit">Upload & Test</button>
+  </form>
+
+  <div id="result-container"></div>
 
   <script>
-    async function loadResult() {
-      const res = await fetch('result.json');
+    document.getElementById('upload-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('csvFile');
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const res = await fetch('https://vehicle-agent.vercel.app/api', {
+        method: 'POST',
+        body: formData
+      });
+
       const data = await res.json();
-      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
-    }
+      document.getElementById('result-container').innerHTML = `
+        <h2>Status: ${data.status}</h2>
+        <p>Health Score: ${data.health_score}</p>
+        <h3>Issues</h3>
+        <ul>${data.issues.map(i => `<li>${i}</li>`).join('')}</ul>
+      `;
+    });
   </script>
 </body>
 </html>

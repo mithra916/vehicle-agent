@@ -1,0 +1,17 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 2rem;
+  background-color: #f4f4f4;
+}
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+pre {
+  text-align: left;
+  margin-top: 2rem;
+  background: #eee;
+  padding: 1rem;
+  border-radius: 10px;
+}
